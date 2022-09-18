@@ -75,7 +75,7 @@ namespace F515_Custom_std {
     }
 
     bool ostream::operator==(const ostream other) {
-
+        return false; //temp
     }
 
     void ostream::append(const char* str) {

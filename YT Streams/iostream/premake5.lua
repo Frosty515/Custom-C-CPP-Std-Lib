@@ -10,8 +10,8 @@ workspace "YTStreams-iostream"
 
 outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 
-project "iostream"
-    location "iostream"
+project "Custom-iostream"
+    location "Custom-iostream"
     kind "SharedLib"
     language "C++"
 
@@ -51,9 +51,6 @@ project "iostream"
             "F515_BUILD_SO"
         }
 
-    filter { "system:linux", "action:gmake" }
-        buildoptions { "`wx-config --cxxflags`", "-ffreestanding" }
-
     filter "configurations:debug"
         defines "F515_DEBUG"
         symbols "On"
@@ -78,12 +75,12 @@ project "Testing"
 
     includedirs
     {
-        "iostream/src"
+        "Custom-iostream/src"
     }
 
     links
     {
-        "iostream"
+        "Custom-iostream"
     }
 
     filter "system:windows"
@@ -105,9 +102,6 @@ project "Testing"
         {
             "F515_PLATFORM_LINUX"
         }
-
-    filter { "system:linux", "action:gmake" }
-        buildoptions { "`wx-config --cxxflags`", "-ffreestanding" }
 
     filter "configurations:debug"
         defines "F515_DEBUG"
