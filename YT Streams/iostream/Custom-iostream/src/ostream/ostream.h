@@ -7,6 +7,7 @@
 #include <memory>
 
 #include "../Core.h"
+#include "../string/util.h"
 
 #define OSTREAM_DEFAULT_SIZE 64
 
@@ -15,32 +16,39 @@ namespace F515_Custom_std {
     public:
         ostream();
         ostream(const char* str);
-        ostream(const uint64_t i);
-        ostream(const int64_t i);
-        ostream(const double d);
+        ostream(const uint64_t in);
+        ostream(const int64_t in);
+        //ostream(const double d);
         ostream(const bool b);
 
         void operator=(const char* str);
-        void operator=(const uint64_t i);
-        void operator=(const int64_t i);
-        void operator=(const double d);
+        void operator=(const uint64_t in);
+        void operator=(const int64_t in);
+        //void operator=(const double d);
         void operator=(const bool b);
 
-        bool operator==(const ostream other);
+        bool operator==(ostream other);
 
         void append(const char* str);
-        void append(const uint64_t i);
-        void append(const int64_t i);
-        void append(const double d);
+        void append(const uint64_t in);
+        void append(const int64_t in);
+        //void append(const double d);
         void append(const bool b);
 
-        inline void operator<<(const char* str)  { append(str); };
-        inline void operator<<(const uint64_t i) { append(i);   };
-        inline void operator<<(const int64_t i)  { append(i);   };
-        inline void operator<<(const double d)   { append(d);   };
-        inline void operator<<(const bool b)     { append(b);   };
+        inline void operator<<(const char* str)   { append(str);  };
+        inline void operator<<(const uint64_t in) { append(in);   };
+        inline void operator<<(const int64_t in)  { append(in);   };
+        //inline void operator<<(const double d)  { append(d);    };
+        inline void operator<<(const bool b)      { append(b);    };
 
         void Clear();
+
+        const char* GetStr();
+        inline size_t GetDataSize() {
+            if (m_hasData)
+                return m_dataSize;
+            return 0;
+        };
 
         ~ostream();
 
@@ -51,8 +59,9 @@ namespace F515_Custom_std {
 
     private:
         uint8_t* m_data;
-        size_t m_dataSize;
-        bool m_hasCalled_malloc;
+        size_t   m_dataSize;
+        bool     m_hasCalled_malloc;
+        bool     m_hasData;
     };
 
 }
